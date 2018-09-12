@@ -21,12 +21,12 @@ if [ ! -d "$BUILD_DIR" ]; then echo "Build directoy not present copy in `dirname
 CFLAGS="-g -Wall"
 #check for command line argument passed is directory or not
 if [[ ! -d $Path_of_directory ]]; then echo "$Path_of_directory is not a Directory"; exit 0; fi
-filename=`find $Path_of_directory -name "*.c"`
-SRCS=`basename "$filename"`
+filename=$(find $Path_of_directory -name "*.c" | tr '\n' ' ')
+SRCS=$filename
 #check for the presence of the source file
 if [ "$filename" == '' ];then echo "source file is not present"; exit 0; fi  
 if [ $type_of_makefile == "-u" ]; then 
-	PROG=`basename "$filename" .c`
+	PROG=$(basename `pwd`)
 	MK_FILE="include ${BUILD_DIR}/linux.prog.mk"
 
 	if [ -f  $Path_of_directory/Makefile ];then rm $Path_of_directory/Makefile; fi
@@ -39,7 +39,7 @@ if [ $type_of_makefile == "-u" ]; then
 	echo "CFLAGS=$CFLAGS" >> $Path_of_directory/Makefile 
 	echo "$MK_FILE" >> $Path_of_directory/Makefile
 elif [ $type_of_makefile == "-k" ]; then 
-	KMOD=`basename "$filename" .c`
+	KMOD=$(basename `pwd`)
 	MK_FILE="include ${BUILD_DIR}/linux.kmod.mk"
 
 	if [ -f  $Path_of_directory/Makefile ];then rm $Path_of_directory/Makefile; fi
@@ -49,7 +49,7 @@ elif [ $type_of_makefile == "-k" ]; then
 	echo "$MK_FILE" >> $Path_of_directory/Makefile
 
 elif [ $type_of_makefile == "-s" ]; then 
-	BIN=`basename "$filename" .c`
+	BIN=$(basename `pwd`)
 	MK_FILE="include ${BUILD_DIR}/linux.lib.mk"
 
 	if [ -f  $Path_of_directory/Makefile ];then rm $Path_of_directory/Makefile; fi
