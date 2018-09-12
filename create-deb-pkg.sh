@@ -2,7 +2,6 @@
 build_dir=$(pwd)/build
 VER=2.0
 PKGNAME=genmake-${VER}
-DEB_NAME=genmake_${VER}_amd64.deb
 
 mkdir -p ${build_dir}/../src/usr/lib
 mkdir -p ${build_dir}/../src/sbin
