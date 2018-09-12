@@ -5,7 +5,7 @@
 *apt-get install -y build-essential autoconf libtool libssl-dev gawk debhelper dh-systemd init-system-helpers pkg-config
 
 #generate genmake file 
-sudo ./genmake.sh
+sudo ./create-deb-pkg.sh
 
 #install deb package
 
