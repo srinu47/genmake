@@ -52,7 +52,7 @@ if [ $type_of_makefile == "-u" ]; then
 	if [ "$filename_cpp" ];then echo "CC= $CC" >> $Path_of_directory/Makefile;fi
 	echo "$MK_FILE" >> $Path_of_directory/Makefile
 elif [ $type_of_makefile == "-k" ]; then 
-	KMOD=$(basename `pwd`/$filename_c | cut -f 1 -d '.')
+	KMOD=$(basename `pwd`)
 	MK_FILE="include ${BUILD_DIR}/linux.kmod.mk"
 
 	if [ -f  $Path_of_directory/Makefile ];then rm $Path_of_directory/Makefile; fi
