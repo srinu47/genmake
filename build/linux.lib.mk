@@ -10,10 +10,10 @@ all:${PROG}
 ${PROG}:${OBJS} 
 	$(CC)  -shared ${LDFLAGS} ${CFLAGS} $^  -o $@ ${LIBS} 
 ifeq (${CC},g++)
-%.o:%.cpp ${SRCS}
+%.o:%.cpp
 	$(CC) -fPIC ${CFLAGS}  -c $^
 else
-%.o:%.c ${SRCS}
+%.o:%.c
 	$(CC) -fPIC ${CFLAGS}  -c $^
 endif
 

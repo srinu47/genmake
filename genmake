@@ -23,6 +23,7 @@ CFLAGS="-g -Wall"
 if [[ ! -d $Path_of_directory ]]; then echo "$Path_of_directory is not a Directory"; exit 0; fi
 filename_c=$(find $Path_of_directory -name "*.c" | tr '\n' ' ')
 filename_cpp=$(find $Path_of_directory -name "*.cpp" | tr '\n' ' ')
+deps=$(find $Path_of_directory -name "*.h" | tr '\n' ' ')
 #check for the presence of the source file
 if [ "$filename_c" ]
 then
@@ -33,6 +34,7 @@ then
 	CC="g++"
 else
 	echo "No source file is present!"
+	exit 0
 fi
 if [ $type_of_makefile == "-u" ]; then 
 	PROG=$(basename `pwd`)
@@ -44,6 +46,7 @@ if [ $type_of_makefile == "-u" ]; then
 	echo "#LDFLAGS for loader flags; EXTRA_CFLAGS for file inclusion"  >> $Path_of_directory/Makefile
 	echo "#LDADD for linking and loading the library"  >> $Path_of_directory/Makefile
 	echo "SRCS=$SRCS" >> $Path_of_directory/Makefile
+	if [ -f $Path_of_directory/$deps ]; then echo "DEPS=-I." >> $Path_of_directory/Makefile; fi
 	echo "PROG=$PROG" >>   $Path_of_directory/Makefile
 	echo "CFLAGS=$CFLAGS" >> $Path_of_directory/Makefile 
 	if [ "$filename_cpp" ];then echo "CC= $CC" >> $Path_of_directory/Makefile;fi
@@ -67,6 +70,7 @@ elif [ $type_of_makefile == "-s" ]; then
 	echo "************generating makefile for $Path_of_directory directory********"
 	echo "#EXTRA_CFLAGS for file inclusion; LDADD for linking and loading the library"  >> $Path_of_directory/Makefile
 	echo "SRCS=$SRCS" >> $Path_of_directory/Makefile
+	if [ -f $Path_of_directory/$deps ]; then echo "CFLAGS+=-I." >> $Path_of_directory/Makefile; fi
 	echo "LIB=$BIN" >>   $Path_of_directory/Makefile
 	if [ "$filename_cpp" ];then echo "CC= $CC" >> $Path_of_directory/Makefile;fi
 	echo "$MK_FILE" >> $Path_of_directory/Makefile

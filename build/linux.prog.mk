@@ -8,10 +8,10 @@ all:${PROG}
 ${PROG}:${OBJS}
 	$(CC)  ${CFLAGS} ${OBJS} -o ${PROG} ${LIBS} ${LDFLAGS}
 ifeq (${CC},g++)
-%.o:%.cpp
+%.o:%.cpp ${DEPS}
 	$(CC) ${CFLAGS} -c $<
 else
-%.o:%.c
+%.o:%.c ${DEPS}
 	$(CC) ${CFLAGS} -c $< 
 endif
 .PHONY:clean
